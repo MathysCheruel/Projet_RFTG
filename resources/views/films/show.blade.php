@@ -8,9 +8,9 @@
                     Supprimer
                 </button>
             </form>
-            <button type="submit" class="px-4 py-2 rounded-md" style="background-color:gray; color:white; margin-bottom:2%;">
+            <a type="submit" href="{{ route('films.edit', ['id' => $film['filmId']]) }}" class="px-4 py-2 rounded-md" style="background-color:gray; color:white; margin-bottom:2%;">
                 Editer
-            </button>
+            </a>
             <h1 class="text-6xl title-bold mb-6 text-center" style="font-weight:bold;">{{ $film['title'] ?? 'Titre non disponible' }}</h1>
 
             <p class="text-gray-700 mb-4 text-lg text-center"><strong>Description :</strong> {{ $film['description'] ?? 'Description non disponible' }}</p>
@@ -21,7 +21,6 @@
             <p class="text-gray-700 mb-4 text-lg text-center"><strong>Coût de remplacement :</strong> {{ $film['replacementCost'] ?? 'N/A' }} €</p>
             <p class="text-gray-700 mb-4 text-lg text-center"><strong>Classement :</strong> {{ $film['rating'] ?? 'Non classé' }}</p>
             <p class="text-gray-700 mb-4 text-lg text-center"><strong>Langue originale :</strong> {{ $film['originalLanguageId'] ?? 'N/A' }}</p>
-            <p class="text-gray-700 mb-4 text-lg text-center"><strong>Dernière mise à jour :</strong> {{ $film['lastUpdate'] ?? 'Non disponible' }}</p>
 
             @if (!empty($film['specialFeatures']))
                 <p class="text-gray-700 mb-4 text-lg text-center"><strong>Caractéristiques spéciales :</strong> {{ $film['specialFeatures'] }}</p>
