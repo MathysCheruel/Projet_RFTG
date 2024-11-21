@@ -13,7 +13,8 @@ class Film extends Model
         'title',
         'description',
         'genre',
-        'epoque',
-        'lastUpdate',
+        'rating',
+        'rentalRate',
+        'releaseYear',
     ];
 }

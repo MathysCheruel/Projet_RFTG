@@ -19,6 +19,7 @@ class FilmController extends Controller
         if ($response->successful()) {
             $films = collect($response->json())->map(function ($film) {
                 return [
+                    'id' => $film['filmId'],
                     'title' => $film['title'],
                     'description' => $film['description'],
                     'releaseYear' => $film['releaseYear'],
@@ -40,5 +41,24 @@ class FilmController extends Controller
         }
     
         return redirect()->back()->withErrors('Impossible de récupérer les films');
-    }    
+    }
+    
+    public function show($id)
+    {
+        // Récupérer le film par son ID
+        $response = Http::get('http://localhost:8080/toad/film/getById/$id');
+    
+        if ($response->successful()) {
+            $films = collect($response->json())->map(function ($film) {
+                return [
+                    'releaseYear' => $film['releaseYear'],
+                    'rentalRate' => $film['rentalRate'],
+                    'rating' => $film['rating'],
+                ];
+            });
+            return view('show', ['films' => $films]);
+        };
+        
+        return redirect()->back()->withErrors('Impossible de récupérer les détails du film');
+    }
 }

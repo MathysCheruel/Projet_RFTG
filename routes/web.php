@@ -19,5 +19,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/films',[FilmController::class,'index'])->name('catalogue');
+Route::get('/films/{id}', [FilmController::class, 'show'])->name('show');
 
 require __DIR__.'/auth.php';
