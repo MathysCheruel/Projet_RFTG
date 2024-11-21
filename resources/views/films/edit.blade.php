@@ -1,10 +1,16 @@
 <x-app-layout>
     <div class="flex justify-center items-center min-h-screen bg-gray-50">
         <div class="w-full">
-            <h1 class="text-4xl font-bold mb-6 text-center">Éditer le Film : {{ $film['title'] }}</h1>
+            <h1 class="text-4xl font-bold mb-6 text-center" style="font-weight:bold; margin-top:2%; font-size:1.3rem">Éditer le Film : {{ $film['title'] }}</h1>
+            
+            <div class="flex justify-center">
+                <button type="submit" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none" style="margin-bottom:1%; background-color:gray; color:white;">
+                    Sauvegarder
+                </button>
+            </div>
 
             @if ($errors->any())
-            <div class="alert alert-danger center">
+            <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li style="color: red; font-weight: bold;">{{ $error }}</li>
@@ -78,16 +84,9 @@
                 </div>
 
                 <!-- Réalisateur (ID pour l'instant) -->
-                <div class="mb-4" style="margin-left:10%; margin-right:10%;">
+                <div class="mb-4" style="margin-left:10%; margin-right:10%; margin-bottom:2%;">
                     <label for="idDirector" class="block text-lg font-semibold">Réalisateur (ID)</label>
                     <input type="number" id="idDirector" name="idDirector" class="mt-2 w-full p-2 border border-gray-300 rounded-md" value="{{ old('idDirector', $film['idDirector']) }}">
-                </div>
-
-                <!-- Bouton de soumission -->
-                <div class="flex justify-center">
-                    <button type="submit" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none" style="background-color:gray; color:white;">
-                        Sauvegarder
-                    </button>
                 </div>
             </form>
         </div>

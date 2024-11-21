@@ -12,9 +12,12 @@ use Illuminate\Support\Collection;
 
 class FilmController extends Controller
 {
-
+    /*
+        Fonction pour afficher la liste des films
+    */
     public function index(Request $request)
     {
+        $searchTerm = $request->input('search', ''); // Valeur par défaut vide
         $response = Http::get('http://localhost:8080/toad/film/all');
     
         if ($response->successful()) {
@@ -35,7 +38,13 @@ class FilmController extends Controller
                 ];
             });
     
-            $perPage = 10;
+            if ($searchTerm) {
+                $films = $films->filter(function ($film) use ($searchTerm) {
+                    return stripos($film['title'], $searchTerm) !== false;
+                });
+            }
+
+            $perPage = 12;
             $currentPage = LengthAwarePaginator::resolveCurrentPage();
             $currentPageItems = $films->slice(($currentPage - 1) * $perPage, $perPage)->values();
             $paginatedFilms = new LengthAwarePaginator(
@@ -52,6 +61,10 @@ class FilmController extends Controller
         return redirect()->back()->withErrors('Impossible de récupérer les films');
     }
     
+
+    /*
+        Informations supplémentaires sur le film (Bouton "Voir Plus")
+    */
     public function show($id)
     {
         $response = Http::get("http://localhost:8080/toad/film/getById?id=$id");
@@ -64,6 +77,9 @@ class FilmController extends Controller
         return redirect()->back()->withErrors('Impossible de récupérer les détails du film');
     }
 
+    /*
+        Supprimer un film
+    */
     public function destroy($id){
         $response = Http::delete("http://localhost:8080/toad/film/delete/{$id}");
 
@@ -74,12 +90,13 @@ class FilmController extends Controller
         return redirect()->back()->withErrors('Impossible de supprimer le film.');
     }
 
+    /*
+        Modifier les informations d'un film
+    */
     public function edit($id)
     {
-        // Récupérer les détails du film à éditer
         $response = Http::get("http://localhost:8080/toad/film/getById?id=$id");
 
-        // Vérifier si la requête a réussi
         if ($response->successful()) {
             $film = $response->json();
             return view('films.edit', ['film' => $film]);
@@ -90,7 +107,6 @@ class FilmController extends Controller
     
     public function update(Request $request, $id)
     {
-        // Validation des données
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -105,21 +121,16 @@ class FilmController extends Controller
             'idDirector' => 'nullable|integer',
         ]);
     
-        // Générer l'horodatage actuel pour lastUpdate
         $lastUpdate = Carbon::now()->format('Y-m-d H:i:s'); // Format attendu : 'YYYY-MM-DD HH:MM:SS'
     
-        // Ajouter lastUpdate aux données validées
         $validated['lastUpdate'] = $lastUpdate;
     
-        // Effectuer la requête PUT avec les données encodées en URL
         $response = Http::asForm()->put("http://localhost:8080/toad/film/update/$id", $validated);
     
-        // Vérifier si la mise à jour a réussi
         if ($response->successful()) {
             return redirect()->route('catalogue')->with('success', 'Film mis à jour avec succès.');
         }
     
-        // Retourner l'erreur avec le message de l'API
         return redirect()->back()->withErrors('Erreur lors de la mise à jour du film : ' . $response->body());
     }    
 
