@@ -20,5 +20,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/films',[FilmController::class,'index'])->name('catalogue');
 Route::get('/films/{id}', [FilmController::class, 'show'])->name('show');
+Route::delete('/films/{id}', [FilmController::class, 'destroy'])->name('films.destroy');
 
 require __DIR__.'/auth.php';

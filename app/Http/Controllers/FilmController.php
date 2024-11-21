@@ -45,20 +45,27 @@ class FilmController extends Controller
     
     public function show($id)
     {
-        // Récupérer le film par son ID
-        $response = Http::get('http://localhost:8080/toad/film/getById/$id');
+        $response = Http::get("http://localhost:8080/toad/film/getById?id=$id");
     
         if ($response->successful()) {
-            $films = collect($response->json())->map(function ($film) {
-                return [
-                    'releaseYear' => $film['releaseYear'],
-                    'rentalRate' => $film['rentalRate'],
-                    'rating' => $film['rating'],
-                ];
-            });
-            return view('show', ['films' => $films]);
+            $film = $response->json();
+            return view('films.show', ['film' => $film]);
         };
         
         return redirect()->back()->withErrors('Impossible de récupérer les détails du film');
+    }
+
+    public function destroy($id){
+        $response = Http::delete("http://localhost:8080/toad/film/delete/{$id}");
+
+        if ($response->successful()) {
+            return redirect()->route('catalogue')->with('success', 'Film supprimé avec succès.');
+        }
+       
+        return redirect()->back()->withErrors('Impossible de supprimer le film.');
+    }
+
+    public function edit($id){
+
     }
 }

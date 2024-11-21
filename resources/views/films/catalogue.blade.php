@@ -3,6 +3,12 @@
     <div class="max-w-7xl mx-auto p-6 lg:p-8">
         <h1 class="text-3xl font-bold mb-6">Catalogue de Films</h1>
  
+        @if (session('success'))
+            <div class="alert alert-success mb-6 text-green-600">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
