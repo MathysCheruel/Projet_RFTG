@@ -2,12 +2,6 @@
     <div class="flex justify-center items-center min-h-screen bg-gray-50">
         <div class="w-full">
             <h1 class="text-4xl font-bold mb-6 text-center" style="font-weight:bold; margin-top:2%; font-size:1.3rem">Éditer le Film : {{ $film['title'] }}</h1>
-            
-            <div class="flex justify-center">
-                <button type="submit" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none" style="margin-bottom:1%; background-color:gray; color:white;">
-                    Sauvegarder
-                </button>
-            </div>
 
             @if ($errors->any())
             <div class="alert alert-danger">
@@ -22,6 +16,12 @@
             <form action="{{ route('films.update', ['id' => $film['filmId']]) }}" method="POST">
                 @csrf
                 @method('PUT')
+
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none" style="margin-bottom:1%; background-color:gray; color:white;">
+                        Sauvegarder
+                    </button>
+                </div>
 
                 <!-- Titre -->
                 <div class="mb-4" style="margin-left:10%; margin-right:10%;">

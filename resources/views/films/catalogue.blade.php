@@ -2,6 +2,12 @@
     <div class="max-w-7xl mx-auto p-6 lg:p-8">
         <h1 class="text-3xl font-bold mb-6 flex justify-center items-center" style="font-weight:bold; margin-top:1%; font-size:1.3rem">Catalogue de Films</h1>
 
+        <div class="flex justify-center mb-6">
+            <a href="{{ route('films.create') }}" style="background-color:gray; color:white; margin-bottom:2%; justify-content:center; align-items:center; display:flex;" class="bg-green-500 text-white font-bold px-6 py-2 rounded-md hover:bg-green-600">
+                Ajouter un film
+            </a>
+        </div>
+
         <form action="{{ route('catalogue') }}" method="GET" style="margin-bottom:2%; justify-content:center; align-items:center; display:flex;">
             <input type="text" name="search" placeholder="Rechercher un film..." value="{{ request()->input('search') }}">
             <button type="submit" style="background-color:gray; color:white; margin-left:0.2%;" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none">Rechercher</button>

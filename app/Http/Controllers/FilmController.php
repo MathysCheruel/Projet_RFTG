@@ -13,11 +13,11 @@ use Illuminate\Support\Collection;
 class FilmController extends Controller
 {
     /*
-        Fonction pour afficher la liste des films
+        Fonction pour afficher la liste des films présents en DB
     */
     public function index(Request $request)
     {
-        $searchTerm = $request->input('search', ''); // Valeur par défaut vide
+        $searchTerm = $request->input('search', '');
         $response = Http::get('http://localhost:8080/toad/film/all');
     
         if ($response->successful()) {
@@ -63,7 +63,7 @@ class FilmController extends Controller
     
 
     /*
-        Informations supplémentaires sur le film (Bouton "Voir Plus")
+        Informations supplémentaires sur un film unique (Bouton "Voir Plus")
     */
     public function show($id)
     {
@@ -78,7 +78,7 @@ class FilmController extends Controller
     }
 
     /*
-        Supprimer un film
+        Supprimer un film unique
     */
     public function destroy($id){
         $response = Http::delete("http://localhost:8080/toad/film/delete/{$id}");
@@ -91,7 +91,7 @@ class FilmController extends Controller
     }
 
     /*
-        Modifier les informations d'un film
+        Récupérer les informations d'un film unique
     */
     public function edit($id)
     {
@@ -105,6 +105,9 @@ class FilmController extends Controller
         return redirect()->back()->withErrors('Impossible de récupérer les détails du film à éditer');
     }
     
+    /*
+        Mettre à jour les informations d'un film
+    */
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -131,7 +134,45 @@ class FilmController extends Controller
             return redirect()->route('catalogue')->with('success', 'Film mis à jour avec succès.');
         }
     
-        return redirect()->back()->withErrors('Erreur lors de la mise à jour du film : ' . $response->body());
+        return redirect()->back()->withErrors('Erreur lors de la mise à jour du film');
     }    
+    
+    public function create()
+    {
+        return view('films.create');
+    }
+    
+    /*
+        Créer un DVD
+    */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'releaseYear' => 'required|integer',
+            'languageId' => 'required|integer',
+            'originalLanguageId' => 'required|integer',
+            'rentalDuration' => 'required|integer',
+            'rentalRate' => 'required|numeric',
+            'length' => 'required|integer',
+            'replacementCost' => 'required|numeric',
+            'rating' => 'required|string|max:10',
+            'specialfeatures' => 'required|string',
+            'idDirector' => 'nullable|integer',
+        ]);
+    
+        $lastUpdate = Carbon::now()->format('Y-m-d H:i:s'); // Format attendu : 'YYYY-MM-DD HH:MM:SS'
+    
+        $validated['lastUpdate'] = $lastUpdate;
 
+        $response = Http::asForm()->post("http://localhost:8080/toad/film/add", $validated);
+
+        if ($response->successful()) {
+            return redirect()->route('catalogue')->with('success', 'Film ajouté avec succès.');
+        }
+    
+        return redirect()->back()->withErrors("Erreur lors de l'ajout à jour du film");
+    }
+    
 }

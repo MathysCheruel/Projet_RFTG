@@ -12,9 +12,15 @@ class Film extends Model
     protected $fillable = [
         'title',
         'description',
-        'genre',
-        'rating',
-        'rentalRate',
         'releaseYear',
+        'languageId',
+        'originalLanguageId',
+        'rentalDuration',
+        'rentalRate',
+        'length',
+        'replacementCost',
+        'rating',
+        'specialfeatures',
+        'idDirector',
     ];
 }
