@@ -29,11 +29,6 @@
                 <p class="text-gray-700 mb-4 text-lg text-center"><strong>Caractéristiques spéciales :</strong> {{ $film['specialFeatures'] }}</p>
             @endif
 
-            @if (!empty($film['idDirector']))
-                <p class="text-gray-700 mb-4 text-lg text-center"><strong>Réalisateur :</strong> {{ $film['idDirector'] }}</p>
-            @else
-                <p class="text-gray-700 mb-4 text-lg text-center"><strong>Réalisateur :</strong> Non spécifié</p>
-            @endif
         </div>
     </div>
 

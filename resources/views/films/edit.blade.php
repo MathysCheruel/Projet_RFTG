@@ -83,11 +83,6 @@
                     <input type="text" id="rating" name="rating" class="mt-2 w-full p-2 border border-gray-300 rounded-md" value="{{ old('rating', $film['rating']) }}" maxlength="10" required>
                 </div>
 
-                <!-- Réalisateur (ID pour l'instant) -->
-                <div class="mb-4" style="margin-left:10%; margin-right:10%; margin-bottom:2%;">
-                    <label for="idDirector" class="block text-lg font-semibold">Réalisateur (ID)</label>
-                    <input type="number" id="idDirector" name="idDirector" class="mt-2 w-full p-2 border border-gray-300 rounded-md" value="{{ old('idDirector', $film['idDirector']) }}">
-                </div>
             </form>
         </div>
     </div>

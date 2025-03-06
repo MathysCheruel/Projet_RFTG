@@ -33,8 +33,7 @@ class FilmController extends Controller
                     'rentalRate' => $film['rentalRate'],
                     'length' => $film['length'],
                     'replacementCost' => $film['replacementCost'],
-                    'rating' => $film['rating'],
-                    'idDirector' => $film['idDirector']
+                    'rating' => $film['rating']
                 ];
             });
     
@@ -120,8 +119,7 @@ class FilmController extends Controller
             'rentalRate' => 'required|numeric',
             'length' => 'required|integer',
             'replacementCost' => 'required|numeric',
-            'rating' => 'required|string|max:10',
-            'idDirector' => 'nullable|integer',
+            'rating' => 'required|string|max:10'
         ]);
     
         $lastUpdate = Carbon::now()->format('Y-m-d H:i:s'); // Format attendu : 'YYYY-MM-DD HH:MM:SS'
@@ -158,8 +156,7 @@ class FilmController extends Controller
             'length' => 'required|integer',
             'replacementCost' => 'required|numeric',
             'rating' => 'required|string|max:10',
-            'specialfeatures' => 'required|string',
-            'idDirector' => 'nullable|integer',
+            'specialfeatures' => 'required|string'
         ]);
     
         $lastUpdate = Carbon::now()->format('Y-m-d H:i:s'); // Format attendu : 'YYYY-MM-DD HH:MM:SS'

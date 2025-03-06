@@ -83,12 +83,6 @@
                     <textarea id="specialfeatures" name="specialfeatures" placeholder="Deleted Scenes" class="mt-2 w-full p-2 border border-gray-300 rounded-md" rows="4" required></textarea>
                 </div>
 
-                <!-- Réalisateur (ID pour l'instant) -->
-                <div class="mb-4" style="margin-left:10%; margin-right:10%;">
-                    <label for="idDirector" class="block text-lg font-semibold">Réalisateur (ID)</label>
-                    <input type="number" id="idDirector" name="idDirector" placeholder="1" class="mt-2 w-full p-2 border border-gray-300 rounded-md">
-                </div>
-
                 <!-- Bouton Enregistrer -->
                 <div class="mt-6 flex justify-center">
                     <button type="submit" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600" style="margin-bottom:1%; background-color:gray; color:white;">

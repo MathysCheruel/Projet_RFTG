@@ -20,7 +20,6 @@ class Film extends Model
         'length',
         'replacementCost',
         'rating',
-        'specialfeatures',
-        'idDirector',
+        'specialfeatures'
     ];
 }
