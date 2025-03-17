@@ -8,13 +8,17 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class InventoryController extends Controller
 {
-        /*
+    /*
         Fonction pour afficher la liste des elements de l'inventaire présentes en DB
     */
     public function index(Request $request)
     {
+        $lien = env('TOAD_SERVER');
+        $port = env('TOAD_PORT');
+        $API = $lien.$port;
+
         $searchTerm = $request->input('search', '');
-        $response = Http::get('http://localhost:8080/toad/inventory/getStockByStore');
+        $response = Http::get($API.'/toad/inventory/getStockByStore');
     
         if ($response->successful()) {
             $inventory = $response->json();
@@ -49,7 +53,11 @@ class InventoryController extends Controller
     */
     public function show($id)
     {
-        $response = Http::get("http://localhost:8080/toad/inventory/getStockByStore");
+        $lien = env('TOAD_SERVER');
+        $port = env('TOAD_PORT');
+        $API = $lien.$port;
+
+        $response = Http::get($API."/toad/inventory/getStockByStore");
     
         if ($response->successful()) {
             $inventory = $response->json();

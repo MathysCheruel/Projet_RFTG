@@ -1,48 +1,64 @@
 <x-app-layout>  
-    <div class="max-w-7xl mx-auto p-6 lg:p-8">
-        <h1 class="text-3xl font-bold mb-6 flex justify-center items-center" style="font-weight:bold; margin-top:1%; font-size:1.3rem">Catalogue de Films</h1>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 bg-gray-50">
+        <!-- Titre -->
+        <h1 class="text-4xl font-extrabold text-center text-black mb-10">
+            Découvrez notre <span class="text-indigo-600">Catalogue de Films</span>
+        </h1>
 
-        <div class="flex justify-center mb-6">
-            <a href="{{ route('films.create') }}" style="background-color:gray; color:white; margin-bottom:2%; justify-content:center; align-items:center; display:flex;" class="bg-green-500 text-white font-bold px-6 py-2 rounded-md hover:bg-green-600">
-                Ajouter un film
+        <!-- Barre de Recherche -->
+        <form action="{{ route('catalogue') }}" method="GET" class="flex justify-center items-center mb-10">
+            <input type="text" name="search" placeholder="Rechercher un film..."
+                value="{{ request()->input('search') }}"
+                class="w-2/3 p-4 text-lg rounded-lg bg-black text-black placeholder-gray-500 border border-gray-300 focus:ring-2 focus:ring-indigo-600 focus:outline-none">
+            <button type="submit" class="bg-indigo-600 text-black font-semibold px-6 py-3 rounded-lg ml-4 transition-all hover:bg-indigo-700 focus:outline-none">
+                🔍 Rechercher
+            </button>
+        </form>
+
+        <!-- Ajouter un film -->
+        <div class="flex justify-center mb-12">
+            <a href="{{ route('films.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-black font-semibold px-8 py-3 rounded-lg transition-all">
+                Ajouter un Film
             </a>
         </div>
 
-        <form action="{{ route('catalogue') }}" method="GET" style="margin-bottom:2%; justify-content:center; align-items:center; display:flex;">
-            <input type="text" name="search" placeholder="Rechercher un film..." value="{{ request()->input('search') }}">
-            <button type="submit" style="background-color:gray; color:white; margin-left:0.2%;" class="bg-blue-500 text-white font-bold px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none">Rechercher</button>
-        </form>
-        
+        <!-- Messages d'alerte -->
         @if (session('success'))
-            <div class="alert alert-success mb-6 text-green-600">
-                {{ session('success') }}
+            <div class="text-center text-green-500 font-medium mb-6">
+                ✅ {{ session('success') }}
             </div>
         @endif
 
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li style="color: red; font-weight: bold;">{{ $error }}</li>
-                    @endforeach
-                </ul>
+            <div class="text-center text-red-500 font-medium mb-6">
+                @foreach ($errors->all() as $error)
+                    ⚠️ {{ $error }}<br>
+                @endforeach
             </div>
         @endif
 
+        <!-- Aucun film trouvé -->
         @if ($films->count() === 0)
-            <p class="text-center text-lg text-red-500">Aucune correspondance trouvée.</p>
+            <p class="text-center text-xl text-gray-500">Aucun film trouvé.</p>
         @else
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="film-list">
+            <!-- Liste des films -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 @foreach ($films as $film)
-                    <div class="film-item bg-white border border-gray-200 rounded-lg shadow-md p-4">
-                        <h2 class="text-xl font-semibold mb-2">{{ $film['title'] }}</h2>
-                        <p class="text-gray-700 mb-4">{{ Str::limit($film['description'], 100) }}</p>
-                        <a href="{{ route('show', $film['id']) }}" class="btn btn-primary">Voir plus</a>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all transform hover:scale-105 hover:shadow-lg mb-8 gap-6">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-semibold text-black mb-4">{{ $film['title'] }}</h2>
+                            <p class="text-black mb-4">{{ Str::limit($film['description'], 100) }}</p>
+                            <p class="text-black mb-4">Quantité disponible : <strong>{{ $stockData[$film['id']] ?? 'N/A' }}</strong></p>
+                            <a href="{{ route('show', $film['id']) }}" class="text-indigo-600 hover:text-indigo-700 text-lg font-semibold">
+                                Voir plus
+                            </a>
+                        </div>
                     </div>
                 @endforeach
             </div>
-    
-            <div class="mt-6" style="margin-top:2%;">
+
+            <!-- Pagination -->
+            <div class="mt-12 text-center">
                 {{ $films->links() }}
             </div>
         @endif

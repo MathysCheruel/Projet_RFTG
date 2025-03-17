@@ -13,8 +13,12 @@ class LocationController extends Controller
     */
     public function index(Request $request)
     {
+        $lien = env('TOAD_SERVER');
+        $port = env('TOAD_PORT');
+        $API = $lien.$port;
+
         $searchTerm = $request->input('search', '');
-        $response = Http::get('http://localhost:8080/toad/rental/all');
+        $response = Http::get($API.'/toad/rental/all');
     
         if ($response->successful()) {
             $location = $response->json();
@@ -49,7 +53,11 @@ class LocationController extends Controller
     */
     public function show($id)
     {
-        $response = Http::get("http://localhost:8080/toad/rental/getById?id=$id");
+        $lien = env('TOAD_SERVER');
+        $port = env('TOAD_PORT');
+        $API = $lien.$port;
+
+        $response = Http::get($API."/toad/rental/getById?id=$id");
     
         if ($response->successful()) {
             $location = $response->json();
