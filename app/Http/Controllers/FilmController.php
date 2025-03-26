@@ -23,7 +23,7 @@ class FilmController extends Controller
         $API = $lien.$port;
         $searchTerm = $request->input('search', '');
         $response = Http::get($API.'/toad/film/all');
-        $responseStock = Http::get($API.'/toad/inventory/getStockByStore');
+        $responseStock = Http::get($API.'/toad/inventory/stockFilm');
     
         if ($response->successful()) {
             $films = collect($response->json())->map(function ($film) {
@@ -61,7 +61,7 @@ class FilmController extends Controller
         } 
         if($responseStock->successful()){
             $stockData = collect($responseStock->json())->mapWithKeys(fn ($stockItem) => [
-                $stockItem['filmId'] => $stockItem['quantity']
+                $stockItem['filmId'] => $stockItem['filmsDisponibles']
             ]);
             return view('films.catalogue', ['films' => $paginatedFilms, 'stockData' => $stockData]);
         }

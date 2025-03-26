@@ -29,9 +29,9 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="film-list">
                 @foreach ($locations as $location)
                     <div class="film-item bg-white border border-gray-200 rounded-lg shadow-md p-4">
-                        <h2 class="text-xl font-semibold mb-2">{{ $location['rentalId'] }}</h2>
-                        <p class="text-gray-700 mb-4">{{ $location['returnDate'] }}</p>
-                        <a href="{{ route('locations.show', $location['rentalId']) }}" class="btn btn-primary">Voir plus</a>
+                        <h2 class="text-xl font-semibold mb-2">{{ $location['title'] }}</h2>
+                        <p class="text-gray-700 mb-4">{{ $location['return_date'] }}</p>
+                        <a href="{{ route('locations.show', $location['rental_id']) }}" class="btn btn-primary">Voir plus</a>
                     </div>
                 @endforeach
             </div>

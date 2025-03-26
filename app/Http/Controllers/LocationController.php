@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class LocationController extends Controller
 {
@@ -18,7 +19,7 @@ class LocationController extends Controller
         $API = $lien.$port;
 
         $searchTerm = $request->input('search', '');
-        $response = Http::get($API.'/toad/rental/all');
+        $response = Http::get($API.'/toad/rental/getInformations');
     
         if ($response->successful()) {
             $location = $response->json();
@@ -26,7 +27,7 @@ class LocationController extends Controller
     
             if ($searchTerm) {
                 $location = $location->filter(function ($location) use ($searchTerm) {
-                    return stripos($location['rentalId'], $searchTerm) !== false;
+                    return stripos($location['title'], $searchTerm) !== false;
                 });
             }
 
@@ -51,16 +52,18 @@ class LocationController extends Controller
     /*
         Informations supplémentaires sur une location unique (Bouton "Voir Plus")
     */
-    public function show($id)
+    public function show($rental_id)
     {
         $lien = env('TOAD_SERVER');
         $port = env('TOAD_PORT');
         $API = $lien.$port;
 
-        $response = Http::get($API."/toad/rental/getById?id=$id");
+        $response = Http::get($API."/toad/rental/getInformations/$rental_id");
     
         if ($response->successful()) {
             $location = $response->json();
+            $location = collect($location);
+
             return view('administration.locationshow', ['location' => $location]);
         };
         
