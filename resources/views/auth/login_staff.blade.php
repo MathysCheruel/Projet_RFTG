@@ -10,19 +10,27 @@
             <x-auth-card> 
 
                 <!-- Session Status -->
-                <x-auth-session-status class="mb-4" :status="session('status')" />
-            
+                @if(session('error'))
+                    <div class="bg-red-100 text-red-600 p-3 rounded mb-4 text-sm">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if(session('success'))
+                    <div class="bg-green-100 text-green-600 p-3 rounded mb-4 text-sm">
+                        {{ session('success') }}
+                    </div>
+                @endif            
 
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                <form method="POST" style="zoom: 1; z-index:2;" action="{{ route('login') }}">
+                <form method="POST" style="zoom: 1; z-index:2;" action="{{ route('login_staff') }}">
                     @csrf
 
                     <!-- Email Address -->
                     <div class="mt-4">
                         <label for="email" class="flex items-center text-sm font-bold">
-                            <!-- <img src="{{ asset('icon/icon_user.png') }}" alt="User Icon" class="mr-2 h-5"> -->
                             <i class="fa-solid fa-user"></i>
                             {{ __('Identifiant') }}
                         </label>
@@ -35,15 +43,12 @@
                     <!-- Password -->
                     <div class="mt-4">
                         <label for="password" class="flex items-center text-sm font-bold">
-                            <!-- <img src="{{ asset('icon/icon_password.png') }}" alt="Password Icon" class="mr-2 h-5"> -->
                             <i class="fa-solid fa-lock"></i>
                             {{ __('Mot de passe') }}  
                         </label>
                         <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
                         <div class="mt-2 text-right">
-                            <a href="{{ route('password.request') }}" class="text-xs text-gray-500 hover:text-gray-700" style="position: relative; left: 200px">
-                                <!-- <img src="{{ asset('icon/icon_forgetpassword.png') }}" alt="Forgot Password Icon" class="inline h-5 mr-1"> -->                           
-                            </a>
+                            
                         </div>
                     </div>
 

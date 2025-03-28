@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FilmController;
@@ -8,18 +9,19 @@ use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.login_staff');
 });
+Route::post('/login', [ApiController::class, 'login'])->name('login_staff');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 
 //Routes pour Catalogue/Films
 Route::get('/catalogue',[FilmController::class,'index'])->name('catalogue');
@@ -46,4 +48,4 @@ Route::delete('/customer/{id}', [CustomerController::class, 'destroy'])->where('
 Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
 Route::put('/customer/{id}', [CustomerController::class, 'update'])->where('id', '[0-9]+')->name('customer.update');
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';
