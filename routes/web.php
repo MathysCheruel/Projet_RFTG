@@ -23,6 +23,7 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
+
 //Routes pour Catalogue/Films
 Route::get('/catalogue',[FilmController::class,'index'])->name('catalogue');
 Route::get('/films/{id}', [FilmController::class, 'show'])->where('id', '[0-9]+')->name('show');
@@ -35,10 +36,6 @@ Route::post('/films', [FilmController::class, 'store'])->name('films.store');
 //Routes pour Locations
 Route::get('/locations',[LocationController::class,'index'])->name('locations');
 Route::get('/locations/{id}', [LocationController::class, 'show'])->where('id', '[0-9]+')->name('locations.show');
-
-//Routes pour Inventory
-Route::get('/inventory',[InventoryController::class,'index'])->name('inventorys');
-Route::get('/inventory/{id}', [InventoryController::class, 'show'])->where('id', '[0-9]+')->name('inventorys.show');
 
 //Routes pour Customer
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer.show');

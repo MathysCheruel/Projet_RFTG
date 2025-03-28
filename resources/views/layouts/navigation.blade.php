@@ -39,8 +39,16 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="#" onclick="fetchFilms(event)">
-                {{ __('Films') }}
+            <x-responsive-nav-link href="route('catalogue')" onclick="fetchFilms(event)">
+                {{ __('Catalogue') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="route('locations')" onclick="fetchFilms(event)">
+                {{ __('Locations') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="route('customer.show')" onclick="fetchFilms(event)">
+                {{ __('Clients') }}
             </x-responsive-nav-link>
         </div>
  

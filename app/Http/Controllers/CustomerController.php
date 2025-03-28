@@ -25,7 +25,7 @@ class CustomerController extends Controller
     
             if ($searchTerm) {
                 $clients = $clients->filter(function ($clients) use ($searchTerm) {
-                    return stripos($clients['lastName'], $searchTerm) !== false;
+                    return stripos($clients['firstName'], $searchTerm) !== false;
                 });
             }
 

@@ -6,7 +6,7 @@
         </h1>
 
         <!-- Barre de Recherche -->
-        <form action="{{ route('catalogue') }}" method="GET" class="flex justify-center items-center mb-10">
+        <form action="{{ route('catalogue') }}" method="GET" class="flex justify-center items-center mb-10" style="margin-top: 2%;">
             <input type="text" name="search" placeholder="Rechercher un film..."
                 value="{{ request()->input('search') }}"
                 class="w-2/3 p-4 text-lg rounded-lg bg-black text-black placeholder-gray-500 border border-gray-300 focus:ring-2 focus:ring-indigo-600 focus:outline-none">
@@ -16,8 +16,8 @@
         </form>
 
         <!-- Ajouter un film -->
-        <div class="flex justify-center mb-12">
-            <a href="{{ route('films.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-black font-semibold px-8 py-3 rounded-lg transition-all">
+        <div class="flex justify-center mb-12" style="margin-top: 2%;">
+            <a href="{{ route('films.create') }}" class="px-4 py-2 rounded-md" style="background-color:maroon; color:white;">
                 Ajouter un Film
             </a>
         </div>
@@ -42,14 +42,14 @@
             <p class="text-center text-xl text-gray-500">Aucun film trouvé.</p>
         @else
             <!-- Liste des films -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8" style="margin-top: 2%;">
                 @foreach ($films as $film)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all transform hover:scale-105 hover:shadow-lg mb-8 gap-6">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all transform hover:scale-105 hover:shadow-lg mb-8 gap-6" style="margin-top: 0.5%;">
                         <div class="p-6">
                             <h2 class="text-2xl font-semibold text-black mb-4">{{ $film['title'] }}</h2>
                             <p class="text-black mb-4">{{ Str::limit($film['description'], 100) }}</p>
                             <p class="text-black mb-4">Quantité disponible : <strong>{{ $stockData[$film['id']] ?? 'N/A' }}</strong></p>
-                            <a href="{{ route('show', $film['id']) }}" class="text-indigo-600 hover:text-indigo-700 text-lg font-semibold">
+                            <a href="{{ route('show', $film['id']) }}" class="px-4 py-2 rounded-md" style="background-color:blue; color:white;">
                                 Voir plus
                             </a>
                         </div>
