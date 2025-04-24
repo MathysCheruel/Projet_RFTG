@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('customer.show')" :active="request()->routeIs('customer.show')">
                         {{ __('Clients') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('stock.show')" :active="request()->routeIs('stock.show')">
+                        {{ __('Stock') }}
+                    </x-nav-link>
                 </div>
             </div>
  
@@ -49,6 +52,10 @@
 
             <x-responsive-nav-link href="route('customer.show')" onclick="fetchFilms(event)">
                 {{ __('Clients') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="route('stock.show')" onclick="fetchFilms(event)">
+                {{ __('Stock') }}
             </x-responsive-nav-link>
         </div>
  
