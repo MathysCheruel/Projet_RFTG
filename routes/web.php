@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,7 +23,8 @@ Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
+//Route pour le Stock
+Route::get('/stocks/par-magasin', [StockController::class, 'showStockByStore']);
 
 //Routes pour Catalogue/Films
 Route::get('/catalogue',[FilmController::class,'index'])->name('catalogue');
